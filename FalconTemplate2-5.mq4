@@ -1202,7 +1202,7 @@ void TriggerStopLossHidden(bool Journaling,int Retry_Interval,int Magic,int Slip
 2) Closes positions based on its hidden stop loss levels
 */
 
-   int ordersPos=OrdersTotal();
+   int ordersPos = OrdersTotal();
    int orderTicketNumber;
    double orderSL;
    bool doesOrderExist;
@@ -1216,21 +1216,21 @@ void TriggerStopLossHidden(bool Journaling,int Retry_Interval,int Magic,int Slip
       doesOrderExist=False;
       orderTicketNumber=HiddenSLList[x,0];
 
-      if(orderTicketNumber!=0) 
+      if(orderTicketNumber != 0) 
         { // Order exists
-         for(int y=ordersPos-1; y>=0; y--) 
+         for(int y = ordersPos-1; y >= 0; y--) 
            { // Looping through all current open positions
-            if(OrderSelect(y,SELECT_BY_POS,MODE_TRADES)==true && OrderSymbol()==Symbol() && OrderMagicNumber()==Magic) 
+            if(OrderSelect(y, SELECT_BY_POS,MODE_TRADES) == true && OrderSymbol() == Symbol() && OrderMagicNumber() == Magic) 
               {
-               if(orderTicketNumber==OrderTicket()) 
+               if(orderTicketNumber == OrderTicket()) // if order does exists 
                  { // Checks order number in list against order number of current positions
-                  doesOrderExist=True;
+                  doesOrderExist = True;
                   break;
                  }
               }
            }
 
-         if(doesOrderExist==False) 
+         if(doesOrderExist == False) // if order doesn't exists 
            { // Deletes elements if the order number does not match any current positions
             HiddenSLList[x, 0] = 0;
             HiddenSLList[x, 1] = 0;
